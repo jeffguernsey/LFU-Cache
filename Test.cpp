@@ -1,6 +1,7 @@
 #include "gtest/gtest.h"
 #include "minHeap.h"
 #include "freqNode.h"
+#include "LFUCache.h"
 #include <iostream>
 #include <vector>
 TEST(buildMinHeap, buildTest1) {
@@ -42,4 +43,14 @@ TEST(buildMinHeap, buildTest2) {
     }
     
     EXPECT_EQ(sortedVals, expected);
+}
+
+
+TEST(buildMinLFUCache, buildTest1) {
+    LFUCache* cache = new LFUCache(5);
+    std::vector<int> nums = { 1,4,1,2,3,5,2,3,4,4,4,2,1,5,2,3,5,6,7,6,7,8,7,5,4,3,2,2,4,1,5 };
+    for (int i = 0; i < nums.size(); i++) {
+        cache->put(nums[i]);
+    }
+    EXPECT_EQ(cache->getSize(), 5);
 }

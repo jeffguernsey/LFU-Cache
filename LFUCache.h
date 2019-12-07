@@ -13,6 +13,7 @@ public:
 	bool put(float val);
 	bool containsVal(float val);
 	float peep();
+	int getSize();
 
 private:
 	void input(float val);

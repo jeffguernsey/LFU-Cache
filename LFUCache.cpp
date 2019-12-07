@@ -40,12 +40,18 @@ float LFUCache::peep()
 	return this->heap->peep();
 }
 
+int LFUCache::getSize()
+{
+	return this->size;
+}
+
 void LFUCache::input(float val)
 {
 	//Check if the cache is full, if so delete the least frequent element
 	if (this->size == this->capacity){
 		//Remove the smallest freq element from the cache and the hashMap
 		int removedVal = this->heap->pop();
+		//delete this->hashMap[removedVal]->second;
 		this->hashMap->erase(removedVal);
 		//Insert the new val into the cache with freq 1
 		freqNode* temp = new freqNode(val);
