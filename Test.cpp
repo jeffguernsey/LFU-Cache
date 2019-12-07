@@ -32,12 +32,11 @@ TEST(buildMinHeap, buildTest2) {
     }
     std::vector<float> sortedVals = {};
     for (int i = 0; i < 5; i++) {
-        nodes[1]->incrementFreq();
+        //Increment nodes[2], a pointer to the freq node with value 1, freq 0 
+        nodes[2]->incrementFreq();
     }
-    //How do i know update the nodes position?
-    //It does not know where it is
-    heap.printHeap();
-    heap.maintainHeap(nodes[1]->getIndex());
+    //Make sure that the updated node is still in the correct position post update
+    heap.maintainHeap(nodes[2]->getIndex());
     while (heap.getLength() > 0) {
         sortedVals.push_back(heap.pop());
     }

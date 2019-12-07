@@ -18,7 +18,7 @@ public:
 	bool minHeap::empty();
 	int minHeap::getLength();
 	void minHeap::printHeap();
-	void swapIndices(freqNode* a, freqNode* b);
+	void swapIndexes(freqNode* a, freqNode* b);
 	void maintainHeap(int index);
 };
 

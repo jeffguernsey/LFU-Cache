@@ -4,6 +4,7 @@
 #include <vector>
 
 int minHeap::find(int n) {
+	//We have to check the entire heap for the value
 	for (int i = 1; i <= this->length; i++) {
 		if (this->heap[i]->getVal()== n) {
 			return i;
@@ -15,7 +16,7 @@ void minHeap::shuffleUp(int index) {
 	//If the frequency of the parent index is larger than the current index swap the two
 	while ((*this->heap[index] < *this->heap[index / 2]) && (index / 2 >= 1)) {
 		std::swap(this->heap[index], this->heap[index / 2]);
-		this->swapIndices(this->heap[index], this->heap[index/2]);
+		this->swapIndexes(this->heap[index], this->heap[index/2]);
 		index /= 2;
 	}
 }
@@ -29,7 +30,7 @@ void minHeap::shuffleDown(int index,bool deletionFlag) {
 	//at that point switch values with the final value and delete the final value
 	if (index * 2 > this->length && deletionFlag == true) {
 		std::swap(this->heap[index], this->heap[this->length]);
-		this->swapIndices(this->heap[index], this->heap[this->length]);
+		this->swapIndexes(this->heap[index], this->heap[this->length]);
 		//Needs to shuffle up the exchanges value in case it is smaller than its parent
 		this->shuffleUp(index);
 		freqNode* temp = this->heap[this->length];
@@ -38,7 +39,7 @@ void minHeap::shuffleDown(int index,bool deletionFlag) {
 	} 
 	else if (index * 2 == this->length) {
 		std::swap(this->heap[index], this->heap[index * 2]);
-		this->swapIndices(this->heap[index], this->heap[index*2]);
+		this->swapIndexes(this->heap[index], this->heap[index*2]);
 		this->shuffleDown(index * 2, deletionFlag);
 	}
 	else if(index * 2 < this->length){
@@ -55,19 +56,21 @@ void minHeap::shuffleDown(int index,bool deletionFlag) {
 			return;
 		}
 		std::swap(this->heap[index], this->heap[nextIndex]);
-		this->swapIndices(this->heap[index], this->heap[nextIndex]);
+		this->swapIndexes(this->heap[index], this->heap[nextIndex]);
 		this->shuffleDown(nextIndex, deletionFlag);
 	}
 }
 minHeap::minHeap() {
-	freqNode first(0.0);
-	first.setIndex(0);
+	//Creates a dummy value to make indexing easier
+	freqNode* first = new freqNode(0);
 	std::vector<freqNode*> cur;
-	cur.push_back(&first);
+	cur.push_back(first);
+	//Initialize variables
 	this->heap = cur;
 	this->length = 0;
 }
 void minHeap::insert(freqNode* Node) {
+	//Inserts the new node into the heap and maintains the heap invariant
 	Node->setIndex(this->length+1);
 	this->heap.push_back(Node);
 	this->length += 1;
@@ -79,6 +82,7 @@ int minHeap::peep() {
 	return this->heap[1]->getVal();
 }
 int minHeap::pop() {
+	//Returns the min Value in the heap and maintains the heap invariant
 	int minVal = this->heap[1]->getVal();
 	delete this->heap[1];
 	this->heap[1] = new freqNode(0, INT_MAX);
@@ -91,7 +95,7 @@ void minHeap::deleteVal(int val) {
 	if (index == 0) {
 		return;
 	}
-	//Pseudo infinity, would write custom infinity comparator for real implementation
+	//Pseudo infinity
 	this->heap[index] = &freqNode(0, INT_MAX);
 	this->shuffleDown(index,true);
 	this->length -= 1;
@@ -114,8 +118,9 @@ void minHeap::printHeap() {
 	std::cout << "]\n";
 }
 
-void minHeap::swapIndices(freqNode* a, freqNode* b)
+void minHeap::swapIndexes(freqNode* a, freqNode* b)
 {
+	//Swap indices between the two nodes
 	int temp = a->getIndex();
 	a->setIndex(b->getIndex());
 	b->setIndex(temp);
@@ -123,5 +128,5 @@ void minHeap::swapIndices(freqNode* a, freqNode* b)
 
 void minHeap::maintainHeap(int index)
 {
-	this->shuffleDown(index,false);//
+	this->shuffleDown(index,false);//Pass the False flag to ensure that the node is not deleted
 }
