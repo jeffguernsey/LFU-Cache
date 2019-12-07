@@ -48,9 +48,12 @@ TEST(buildMinHeap, buildTest2) {
 
 TEST(buildMinLFUCache, buildTest1) {
     LFUCache* cache = new LFUCache(5);
-    std::vector<int> nums = { 1,4,1,2,3,5,2,3,4,4,4,2,1,5,2,3,5,6,7,6,7,8,7,5,4,3,2,2,4,1,5 };
+    std::vector<float> nums = { 1,4,1,2,3,5,2,3,4,4,4,2,1,5,2,3,5,6,7,6,7,8,7,5,4,3,2,2,4,1,5 };
+    std::vector<float> expected = {1,2,3,4,5};
     for (int i = 0; i < nums.size(); i++) {
         cache->put(nums[i]);
     }
     EXPECT_EQ(cache->getSize(), 5);
+    std::vector<float> actual = cache->getMapKeys();
+    EXPECT_EQ(actual, expected);
 }

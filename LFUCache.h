@@ -14,6 +14,7 @@ public:
 	bool containsVal(float val);
 	float peep();
 	int getSize();
+	std::vector<float> getMapKeys();
 
 private:
 	void input(float val);

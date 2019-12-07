@@ -3,6 +3,7 @@
 #include "minHeap.h"
 #include "freqNode.h"
 #include <iostream>
+#include <algorithm>
 #include <unordered_map>
 
 LFUCache::LFUCache(int capacity)
@@ -43,6 +44,18 @@ float LFUCache::peep()
 int LFUCache::getSize()
 {
 	return this->size;
+}
+
+std::vector<float> LFUCache::getMapKeys()
+{
+	std::vector<float> keys;
+	keys.reserve(this->hashMap->size());
+
+	for (auto it : *this->hashMap) {
+		keys.push_back(it.first);
+	}
+	std::sort(keys.begin(), keys.end());
+	return keys;
 }
 
 void LFUCache::input(float val)
