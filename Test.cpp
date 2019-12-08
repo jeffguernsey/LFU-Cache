@@ -4,7 +4,7 @@
 #include "LFUCache.h"
 #include <iostream>
 #include <vector>
-TEST(buildMinHeap, buildTest1) {
+TEST(buildMinHeap, buildTestStandard) {
     //Testing a simple build
     std::vector<float> values = { 4,8,1,3,6,9,10,1 };
     std::vector<int> freqs    = { 4,8,0,2,7,1,3,9 };
@@ -21,7 +21,7 @@ TEST(buildMinHeap, buildTest1) {
     EXPECT_EQ(sortedVals,expected);
 }
 
-TEST(buildMinHeap, buildTest2) {
+TEST(buildMinHeap, buildTestIncrementedVals) {
     //Testing a build that increments the value after insertion
     std::vector<float> values = { 4,8,1,3,6,9,10,1 };
     std::vector<int> freqs =    { 4,8,0,2,7,1,3,9 };
@@ -46,6 +46,7 @@ TEST(buildMinHeap, buildTest2) {
     
     EXPECT_EQ(sortedVals, expected);
 }
+
 
 
 TEST(buildMinLFUCache, buildTestStandard) {
@@ -99,4 +100,3 @@ TEST(buildMinLFUCache, buildTestNegative) {
     std::vector<float> actual = cache->getMapKeys();
     EXPECT_EQ(actual, expected);
 }
-

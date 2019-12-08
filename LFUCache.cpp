@@ -48,6 +48,7 @@ int LFUCache::getSize()
 
 std::vector<float> LFUCache::getMapKeys()
 {
+	//This function is for testing purposes
 	std::vector<float> keys;
 	keys.reserve(this->hashMap->size());
 
@@ -63,19 +64,18 @@ void LFUCache::input(float val)
 	//Check if the cache is full, if so delete the least frequent element
 	if (this->size == this->capacity){
 		//Remove the smallest freq element from the cache and the hashMap
+		//This automatically deletes the pointer referenced in the map as well
 		int removedVal = this->heap->pop();
-		//delete this->hashMap[removedVal]->second;
 		this->hashMap->erase(removedVal);
-		//Insert the new val into the cache with freq 1
-		freqNode* temp = new freqNode(val);
-		this->heap->insert(temp);
-		this->hashMap->insert({ val, temp });
+		freqNode* newNode = new freqNode(val);
+		this->heap->insert(newNode);
+		this->hashMap->insert({ val, newNode });
 	}
 	else {
 		//Insert the new val into the cache with freq 1
 		this->size += 1;
-		freqNode* temp = new freqNode(val);
-		this->heap->insert(temp);
-		this->hashMap->insert({ val, temp });
+		freqNode* newNode = new freqNode(val);
+		this->heap->insert(newNode);
+		this->hashMap->insert({ val, newNode });
 	}
 }
